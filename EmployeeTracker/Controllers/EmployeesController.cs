@@ -17,7 +17,6 @@ namespace EmployeeTracker.Controllers
     {
         private IEmployeeTrackerDb db;
 
-
         public EmployeesController(IEmployeeTrackerDb dbParam)
         {
             db = dbParam;
@@ -144,8 +143,12 @@ namespace EmployeeTracker.Controllers
                 return HttpNotFound();
             }
 
+            // populate change tracking list
+            // note: only the 20 most recent changes are taken
             List<EmployeeChangeHistory> changeHistory = db.EmployeeChangeHistories
                 .Where(ch => ch.EmployeeID == employee.ID)
+                .OrderByDescending(ch => ch.DateChanged)
+                .Take(20)
                 .Select(ch => ch).ToList();
 
             var viewModel = new EmployeeWithChangeTracking
