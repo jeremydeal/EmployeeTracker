@@ -10,14 +10,15 @@ using Moq;
 using EmployeeTracker.DAL;
 using EmployeeTracker.Models;
 using System.Data.Entity;
+using EmployeeTracker.Tests.Fakes;
 
 namespace EmployeeTracker.Tests.Controllers
 {
     [TestClass]
     public class EmployeeControllerTest
     {
-        [TestMethod]
-        public void EditActionPullsEmployeeModel()
+        [TestMethod, TestCategory("EmployeeController")]
+        public void IndexActionCanAccessEmployeeModel()
         {
             // Arrange
             EmployeesController controller = SetUpEmployeesController();
@@ -26,9 +27,10 @@ namespace EmployeeTracker.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(model);
+            Assert.AreEqual(model.First().ID, 1);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("EmployeeController")]
         public void EditActionStoresOriginalEmployeeInViewBag()
         {
             // Arrange
@@ -111,201 +113,213 @@ namespace EmployeeTracker.Tests.Controllers
                     PermissionLevel = PermissionLevels.Total,
                     JobTitleID = 1,
                     DepartmentID = 1
+                },
+                new Employee
+                {
+                    ID = 2,
+                    FirstName = "Jeremy",
+                    MiddleName = "Nigel",
+                    LastName = "Deal",
+                    Email = "jeremy.n.deal@gmail.com",
+                    PreferredPhoneNumber = 8282288032,
+                    AddressLine1 = "194 Stirling Pl.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("2016-05-23"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Total,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Web Developer").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                },
+                new Employee
+                {
+                    ID = 3,
+                    FirstName = "Anne",
+                    MiddleName = "Irene Bruce",
+                    LastName = "Galizio",
+                    Email = "annie.galizio@gmail.com",
+                    PreferredPhoneNumber = 9106173802,
+                    AddressLine1 = "194 Stirling Pl.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("2015-04-29"),
+                    Shift = Shifts.Third,
+                    Status = Statuses.PartTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Psychological Consultant").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Marketing").ID
+                },
+                new Employee
+                {
+                    ID = 4,
+                    FirstName = "Richard",
+                    LastName = "Connoly",
+                    Email = "rc@conservice.com",
+                    PreferredPhoneNumber = 4352384111,
+                    AddressLine1 = "101 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("2012-01-01"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Sales Representative").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Marketing").ID
+                },
+                new Employee
+                {
+                    ID = 5,
+                    FirstName = "Buck",
+                    LastName = "Rogers",
+                    Email = "br@conservice.com",
+                    PreferredPhoneNumber = 4352384112,
+                    AddressLine1 = "102 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("1988-01-02"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Customer Service Representative").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Call Center").ID
+                },
+                new Employee
+                {
+                    ID = 6,
+                    FirstName = "Jack",
+                    LastName = "Garrison",
+                    Email = "jg@conservice.com",
+                    PreferredPhoneNumber = 4352384113,
+                    AddressLine1 = "103 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("2003-01-03"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Customer Service Representative").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Call Center").ID
+                },
+                new Employee
+                {
+                    ID = 7,
+                    FirstName = "Jason",
+                    LastName = "Nickelback",
+                    Email = "jn@conservice.com",
+                    PreferredPhoneNumber = 4352384114,
+                    AddressLine1 = "104 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("1994-01-04"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Janitor").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Maintenance").ID
+                },
+                new Employee
+                {
+                    ID = 8,
+                    FirstName = "Alycia",
+                    LastName = "Silverado",
+                    Email = "as@conservice.com",
+                    PreferredPhoneNumber = 4352384115,
+                    AddressLine1 = "105 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("2012-01-05"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Database Engineer").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                },
+                new Employee
+                {
+                    ID = 9,
+                    FirstName = "Allen",
+                    LastName = "Finch",
+                    Email = "af@conservice.com",
+                    PreferredPhoneNumber = 4352384116,
+                    AddressLine1 = "106 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("1997-01-06"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Database Engineer").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                },
+                new Employee
+                {
+                    ID = 10,
+                    FirstName = "Amy",
+                    LastName = "Pond",
+                    Email = "ap@conservice.com",
+                    PreferredPhoneNumber = 4352384116,
+                    AddressLine1 = "107 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("2011-04-22"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Basic,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Junior Web Developer").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                },
+                new Employee
+                {
+                    ID = 11,
+                    FirstName = "Jeremias",
+                    LastName = "Trato",
+                    Email = "jt@conservice.com",
+                    PreferredPhoneNumber = 4352384116,
+                    AddressLine1 = "108 Penny Ln.",
+                    City = "Logan",
+                    State = "UT",
+                    Zip = 84341,
+                    StartDate = DateTime.Parse("1988-12-25"),
+                    Shift = Shifts.First,
+                    Status = Statuses.FullTime,
+                    PermissionLevel = PermissionLevels.Total,
+                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Project Manager").ID,
+                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
                 }
-                //new Employee
-                //{
-                //    ID = 2,
-                //    FirstName = "Jeremy",
-                //    MiddleName = "Nigel",
-                //    LastName = "Deal",
-                //    Email = "jeremy.n.deal@gmail.com",
-                //    PreferredPhoneNumber = 8282288032,
-                //    AddressLine1 = "194 Stirling Pl.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("2016-05-23"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Total,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Web Developer").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 3,
-                //    FirstName = "Anne",
-                //    MiddleName = "Irene Bruce",
-                //    LastName = "Galizio",
-                //    Email = "annie.galizio@gmail.com",
-                //    PreferredPhoneNumber = 9106173802,
-                //    AddressLine1 = "194 Stirling Pl.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("2015-04-29"),
-                //    Shift = Shifts.Third,
-                //    Status = Statuses.PartTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Psychological Consultant").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Marketing").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 4,
-                //    FirstName = "Richard",
-                //    LastName = "Connoly",
-                //    Email = "rc@conservice.com",
-                //    PreferredPhoneNumber = 4352384111,
-                //    AddressLine1 = "101 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("2012-01-01"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Sales Representative").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Marketing").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 5,
-                //    FirstName = "Buck",
-                //    LastName = "Rogers",
-                //    Email = "br@conservice.com",
-                //    PreferredPhoneNumber = 4352384112,
-                //    AddressLine1 = "102 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("1988-01-02"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Customer Service Representative").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Call Center").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 6,
-                //    FirstName = "Jack",
-                //    LastName = "Garrison",
-                //    Email = "jg@conservice.com",
-                //    PreferredPhoneNumber = 4352384113,
-                //    AddressLine1 = "103 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("2003-01-03"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Customer Service Representative").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Call Center").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 7,
-                //    FirstName = "Jason",
-                //    LastName = "Nickelback",
-                //    Email = "jn@conservice.com",
-                //    PreferredPhoneNumber = 4352384114,
-                //    AddressLine1 = "104 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("1994-01-04"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Janitor").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Maintenance").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 8,
-                //    FirstName = "Alycia",
-                //    LastName = "Silverado",
-                //    Email = "as@conservice.com",
-                //    PreferredPhoneNumber = 4352384115,
-                //    AddressLine1 = "105 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("2012-01-05"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Database Engineer").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 9,
-                //    FirstName = "Allen",
-                //    LastName = "Finch",
-                //    Email = "af@conservice.com",
-                //    PreferredPhoneNumber = 4352384116,
-                //    AddressLine1 = "106 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("1997-01-06"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Database Engineer").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 10,
-                //    FirstName = "Amy",
-                //    LastName = "Pond",
-                //    Email = "ap@conservice.com",
-                //    PreferredPhoneNumber = 4352384116,
-                //    AddressLine1 = "107 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("2011-04-22"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Basic,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Junior Web Developer").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
-                //},
-                //new Employee
-                //{
-                //    ID = 11,
-                //    FirstName = "Jeremias",
-                //    LastName = "Trato",
-                //    Email = "jt@conservice.com",
-                //    PreferredPhoneNumber = 4352384116,
-                //    AddressLine1 = "108 Penny Ln.",
-                //    City = "Logan",
-                //    State = "UT",
-                //    Zip = 84341,
-                //    StartDate = DateTime.Parse("1988-12-25"),
-                //    Shift = Shifts.First,
-                //    Status = Statuses.FullTime,
-                //    PermissionLevel = PermissionLevels.Total,
-                //    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Project Manager").ID,
-                //    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
-                //}
             }.AsQueryable();
 
-            var employeesSet = new Mock<DbSet<Employee>>();
-            employeesSet.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(employees.Provider);
-            employeesSet.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(employees.Expression);
-            employeesSet.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(employees.ElementType);
-            employeesSet.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(employees.GetEnumerator());
+            Mock<DbSet<Employee>> employeesSet = GetMockDbSet(employees);
 
-            mockDb.Setup(m => m.Employees).Returns(employeesSet.Object);
+            // bypass Include() statements when mockDB.Employees is accessed
+            employeesSet.Setup(m => m.Include(It.IsAny<string>())).Returns(employeesSet.Object);
+            
+            mockDb.Setup(e => e.Employees).Returns(employeesSet.Object);
 
-            // return controller with the mocked DB
-            return new EmployeesController(mockDb.Object);
+            // return controller with the mocked DB and a fake context
+            var controller = new EmployeesController(mockDb.Object);
+            controller.ControllerContext = new FakeControllerContext();
+            return controller;
+        }
+
+        // a helper to make dbset queryable
+        private Mock<DbSet<T>> GetMockDbSet<T>(IQueryable<T> entities) where T : class
+        {
+            var mockSet = new Mock<DbSet<T>>();
+            mockSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(entities.Provider);
+            mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(entities.Expression);
+            mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(entities.ElementType);
+            mockSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(entities.GetEnumerator());
+            return mockSet;
         }
 
     }
