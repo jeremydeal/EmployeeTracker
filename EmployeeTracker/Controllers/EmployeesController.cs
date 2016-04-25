@@ -54,8 +54,7 @@ namespace EmployeeTracker.Controllers
             // filter employees
             if (!string.IsNullOrEmpty(searchString))
             {
-                employees = employees.Where(e => e.LastName.Contains(searchString)
-                                                || e.FirstName.Contains(searchString));
+                employees = employees.Where(e => string.Concat(e.FirstName, " ", e.LastName).Contains(searchString));
             }
 
             // sort employees on selected column
@@ -103,7 +102,28 @@ namespace EmployeeTracker.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("EmployeeList", employees.ToPagedList(pageNumber, pageSize));
+            }
+
             return View(employees.ToPagedList(pageNumber, pageSize));
+        }
+
+        // handles autocompletion in search bar on Index
+        public ActionResult AutoComplete(string term)
+        {
+            var employees = db.Employees
+                .Where(e => e.FirstName.StartsWith(term) || e.LastName.StartsWith(term))
+                .Take(10)
+                .ToList();
+
+            var names = employees.Select(e => new
+            {
+                label = e.FullName
+            });
+
+            return Json(names, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Employees/Details/5

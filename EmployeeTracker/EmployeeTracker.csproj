@@ -220,6 +220,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeChangeHistory.cs" />
     <Compile Include="Models\JobTitle.cs" />
+    <Compile Include="Models\PrettyPrintHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SANDBOX\EmployeeTrackerDb.cs" />
     <Compile Include="ViewModels\EmployeeWithChangeTracking.cs" />
@@ -274,6 +275,7 @@
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DatePickerReady.js" />
+    <Content Include="Scripts\et.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -309,6 +311,7 @@
     <Content Include="Views\Shared\EditorTemplates\date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\date.cshtml" />
     <Content Include="Views\Employees\EmployeeChangeHistory.cshtml" />
+    <Content Include="Views\Employees\EmployeeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

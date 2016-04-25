@@ -2,7 +2,7 @@
 @using EmployeeTracker.Models
 
 <tr>
-    <td>@Model.Type.ToString()</td>
+    <td>@PrettyPrintHelpers.PrettyPrintChangeType(Model.Type)</td>
     <td>@Model.DateChanged</td>
     @if (Model.Type == ChangeTypes.PermissionsLevelChange)
     {

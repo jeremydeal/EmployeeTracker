@@ -1,4 +1,5 @@
 ﻿@model EmployeeTracker.ViewModels.EmployeeWithChangeTracking
+@using EmployeeTracker.Models
 
 @{
     ViewBag.Title = "Details";
@@ -141,7 +142,7 @@
             @Html.DisplayNameFor(model => model.Employee.Status)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Employee.Status)
+            @PrettyPrintHelpers.PrettyPrintJobStatus(Model.Employee.Status)
         </dd>
 
         <dt>

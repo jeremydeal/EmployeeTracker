@@ -1,0 +1,39 @@
+﻿@model PagedList.IPagedList<EmployeeTracker.Models.Employee>
+@using PagedList.Mvc
+
+<tbody id="employeeList">
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreferredPhoneNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</tbody>

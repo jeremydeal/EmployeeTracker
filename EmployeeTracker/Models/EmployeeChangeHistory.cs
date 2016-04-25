@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace EmployeeTracker.Models
 {
     public enum ChangeTypes
     {
+        [Description("Permissions Level Change")]
         PermissionsLevelChange,
+        [Description("Job Title Change")]
         JobTitleChange,
+        [Description("Manager Change")]
         ManagerChange
     }
 

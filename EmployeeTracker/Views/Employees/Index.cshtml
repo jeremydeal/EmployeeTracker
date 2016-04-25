@@ -12,71 +12,44 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Index", "Employees", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
+<!-- form with autocomplete and Ajax search, handled in et.js -->
+<form method="get" action="@Url.Action("Index")"
+      data-et-ajax="true" data-et-target="#employeeList">
+    <input type="search" name="searchString" data-et-autocomplete="@Url.Action("AutoComplete")" />
+    <input type="submit" value="Search" />
+</form>
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParam, currentFilter=ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParam, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DepartmentSortParam, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Job Title", "Index", new { sortOrder = ViewBag.JobTitleSortParam, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Manager", "Index", new { sortOrder = ViewBag.ManagerSortParam, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Phone
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DepartmentSortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Job Title", "Index", new { sortOrder = ViewBag.JobTitleSortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Manager", "Index", new { sortOrder = ViewBag.ManagerSortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobTitle.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Manager.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PreferredPhoneNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+    <!-- render list of employees -->
+        @Html.Partial("EmployeeList", Model)
+ 
 </table>
 
 <br />
