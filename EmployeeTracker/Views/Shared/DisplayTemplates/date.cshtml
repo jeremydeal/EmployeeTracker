@@ -1,0 +1,9 @@
+﻿@model Nullable<DateTime>
+
+@if (Model != null)
+{
+    var dt = (DateTime) Model;
+    <span>
+        @String.Format("{0:d}", dt.ToShortDateString())
+    </span>
+}

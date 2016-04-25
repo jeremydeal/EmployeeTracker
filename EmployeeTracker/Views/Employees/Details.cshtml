@@ -1,0 +1,186 @@
+﻿@model EmployeeTracker.ViewModels.EmployeeWithChangeTracking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+    <h2>@Html.DisplayFor(model => model.Employee.FullName)</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Department</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Department.Name)
+        </dd>
+
+        <dt>Job Title</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.JobTitle.Name)
+        </dd>
+
+        @if (Model.Employee.Manager != null)
+        {
+            <dt>Manager</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Employee.Manager.FullName)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.FirstName)
+        </dd>
+
+        @if (!string.IsNullOrEmpty(Model.Employee.MiddleName))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee.MiddleName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Employee.MiddleName)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.PreferredPhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.PreferredPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.AddressLine1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.AddressLine1)
+        </dd>
+
+        @if (!string.IsNullOrEmpty(Model.Employee.AddressLine2))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee.AddressLine2)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Employee.AddressLine2)
+            </dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Employee.AddressLine3))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee.AddressLine3)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Employee.AddressLine3)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.State)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Zip)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Zip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.StartDate)
+        </dd>
+
+        @if (Model.Employee.EndDate != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee.EndDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Employee.EndDate)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Shift)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Shift)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.PermissionLevel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.PermissionLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Image)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Image)
+        </dd>
+
+    </dl>
+</div>
+
+<!-- LIST CHANGES -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Change Type</th>
+            <th>Date Changed</th>
+            <th>Old Value</th>
+            <th>New Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var change in Model.EmployeeChangeHistory)
+        {
+            Html.RenderPartial("EmployeeChangeHistory", change);
+        }
+    </tbody>
+</table>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Employee.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,17 @@
+﻿@model EmployeeTracker.Models.EmployeeChangeHistory
+@using EmployeeTracker.Models
+
+<tr>
+    <td>@Model.Type.ToString()</td>
+    <td>@Model.DateChanged</td>
+    @if (Model.Type == ChangeTypes.PermissionsLevelChange)
+    {
+        <td>@Enum.Parse(typeof(PermissionLevels), Model.OldValue).ToString()</td>
+        <td>@Enum.Parse(typeof(PermissionLevels), Model.NewValue).ToString()</td>
+    }
+    else
+    {
+        <td>@Model.OldValue</td>
+        <td>@Model.NewValue</td>
+    }
+</tr>

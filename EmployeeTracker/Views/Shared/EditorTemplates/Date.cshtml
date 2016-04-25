@@ -1,0 +1,13 @@
+﻿@model Nullable<DateTime>
+
+@{
+    string dateVal = "";
+    if (Model != null)
+    {
+        var dt = (DateTime) Model;
+        dateVal = dt.ToString("yyyy-MM-dd");
+    }
+
+    @Html.TextBox("", string.Format("{0:d}", dateVal),
+        new { @class = "datefield form-control text-box", type = "date" })
+}
