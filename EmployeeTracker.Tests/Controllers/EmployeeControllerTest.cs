@@ -17,31 +17,48 @@ namespace EmployeeTracker.Tests.Controllers
     [TestClass]
     public class EmployeeControllerTest
     {
-        [TestMethod, TestCategory("EmployeeController")]
+        [TestMethod]
         public void IndexActionCanAccessEmployeeModel()
         {
             // Arrange
             EmployeesController controller = SetUpEmployeesController();
-            ViewResult result = controller.Index(null, null, null, null) as ViewResult;
+
+            // Act
+            ViewResult result = controller.Index(null, null, null, null, null) as ViewResult;
             IEnumerable<Employee> model = result.Model as IEnumerable<Employee>;
 
             // Assert
             Assert.IsNotNull(model);
-            Assert.AreEqual(model.First().ID, 1);
+            Assert.AreEqual(model.Single(e => e.FirstName == "Bruce" && e.LastName == "Springsteen").ID, 1);
         }
 
-        [TestMethod, TestCategory("EmployeeController")]
-        public void EditActionStoresOriginalEmployeeInViewBag()
+        [TestMethod]
+        public void IndexActionFiltersEmployeesBySearchString()
         {
             // Arrange
             EmployeesController controller = SetUpEmployeesController();
-            ViewResult result = controller.Edit(1) as ViewResult;
+
+            // Act
+            ViewResult result = controller.Index(null, null, "Jeremy Deal", null, null) as ViewResult;
+            IEnumerable<Employee> model = result.Model as IEnumerable<Employee>;
 
             // Assert
-            Assert.AreEqual(1, result.ViewBag.OriginalEmployee.ID);
+            Assert.AreEqual(model.First().FirstName, "Jeremy");
         }
 
+        [TestMethod]
+        public void IndexActionSortsEmployeesByLastNameByDefault()
+        {
+            // Arrange
+            EmployeesController controller = SetUpEmployeesController();
 
+            // Act
+            ViewResult result = controller.Index(null, null, null, null, null) as ViewResult;
+            IEnumerable<Employee> model = result.Model as IEnumerable<Employee>;
+
+            // Assert
+            Assert.AreEqual(model.First().ID, 4);
+        }
 
         private EmployeesController SetUpEmployeesController()
         {
@@ -130,8 +147,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Total,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Web Developer").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -149,8 +166,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.Third,
                     Status = Statuses.PartTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Psychological Consultant").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Marketing").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -167,8 +184,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Sales Representative").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Marketing").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -185,8 +202,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Customer Service Representative").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Call Center").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -203,8 +220,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Customer Service Representative").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Call Center").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -221,8 +238,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Janitor").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "Maintenance").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -239,8 +256,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Database Engineer").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -257,8 +274,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Database Engineer").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -275,8 +292,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Basic,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Junior Web Developer").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 },
                 new Employee
                 {
@@ -293,8 +310,8 @@ namespace EmployeeTracker.Tests.Controllers
                     Shift = Shifts.First,
                     Status = Statuses.FullTime,
                     PermissionLevel = PermissionLevels.Total,
-                    JobTitleID = mockDb.Object.JobTitles.Single(t => t.Name == "Project Manager").ID,
-                    DepartmentID = mockDb.Object.Departments.Single(d => d.Name == "IT").ID
+                    JobTitleID = 1,
+                    DepartmentID = 1
                 }
             }.AsQueryable();
 

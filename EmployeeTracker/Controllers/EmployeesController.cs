@@ -23,16 +23,16 @@ namespace EmployeeTracker.Controllers
         }
 
         // GET: Employees
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? departmentId)
         {
             // initialize sortOrder values for use in the clickable column headers of the grid view
-            ViewBag.LastNameSortParam = String.IsNullOrEmpty(sortOrder) ? "LastName_Desc" : "";      /* defaults to LastName ascending */
+            ViewBag.LastNameSortParam = string.IsNullOrEmpty(sortOrder) ? "LastName_Desc" : "";      /* defaults to LastName ascending */
             ViewBag.FirstNameSortParam = sortOrder == "FirstName" ? "FirstName_Desc" : "FirstName";
             ViewBag.DepartmentSortParam = sortOrder == "Department" ? "Department_Desc" : "Department";
             ViewBag.JobTitleSortParam = sortOrder == "JobTitle" ? "JobTitle_Desc" : "JobTitle";
             ViewBag.ManagerSortParam = sortOrder == "Manager" ? "Manager_Desc" : "Manager";
 
-            // blah
+            // if the user has just searched, reset pagination
             ViewBag.CurrentSort = sortOrder;
             if (searchString != null)
             {
@@ -40,6 +40,7 @@ namespace EmployeeTracker.Controllers
             }
             else
             {
+                // else, reuse the current search filter, if there is one
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
@@ -50,10 +51,16 @@ namespace EmployeeTracker.Controllers
                 .Include(e => e.JobTitle)
                 .Include(e => e.Manager);
 
-            // filter employees
+            // filter employees by the query string
             if (!string.IsNullOrEmpty(searchString))
             {
                 employees = employees.Where(e => string.Concat(e.FirstName, " ", e.LastName).Contains(searchString));
+            }
+
+            // filter employees by the selected department
+            if (departmentId != null)
+            {
+                employees = employees.Where(e => e.DepartmentID == departmentId);
             }
 
             // sort employees on selected column

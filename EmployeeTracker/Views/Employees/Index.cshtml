@@ -1,5 +1,7 @@
 ﻿@model PagedList.IPagedList<EmployeeTracker.Models.Employee>
 @using PagedList.Mvc
+@using EmployeeTracker.Models
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -18,6 +20,19 @@
     <input class="form-control" type="search" name="searchString" data-et-autocomplete="@Url.Action("AutoComplete")" />
     <input class="btn btn-default" type="submit" value="Search" />
 </form>
+
+<!-- TODO: implement filter by department and move this departments query into a new ViewModel -->
+@*<form class="form-inline" method="get" action="@Url.Action("Index", "Employees", new { sortOrder = ViewBag.LastNameSortParam, currentFilter = ViewBag.CurrentFilter })">
+    @{
+        List<Department> departments = Model.Select(x => x.Department).Distinct().OrderBy(d => d.Name).ToList();
+        var selectItems = new List<SelectListItem>();
+        foreach (var d in departments)
+        {
+            selectItems.Add(new SelectListItem { Text = d.Name, Value = d.ID.ToString() });
+        }
+    }
+    @Html.DropDownList("departmentID", selectItems)
+</form>*@
 
 <table class="table">
     <thead>
