@@ -215,6 +215,14 @@
     <Compile Include="Migrations\201604240528500_AddEmployeeChangeTracking.Designer.cs">
       <DependentUpon>201604240528500_AddEmployeeChangeTracking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604250732422_UpdateEmployeeModel.cs" />
+    <Compile Include="Migrations\201604250732422_UpdateEmployeeModel.Designer.cs">
+      <DependentUpon>201604250732422_UpdateEmployeeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604250737053_UpdateEmployeeModel1.cs" />
+    <Compile Include="Migrations\201604250737053_UpdateEmployeeModel1.Designer.cs">
+      <DependentUpon>201604250737053_UpdateEmployeeModel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -338,6 +346,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604240528500_AddEmployeeChangeTracking.resx">
       <DependentUpon>201604240528500_AddEmployeeChangeTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604250732422_UpdateEmployeeModel.resx">
+      <DependentUpon>201604250732422_UpdateEmployeeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604250737053_UpdateEmployeeModel1.resx">
+      <DependentUpon>201604250737053_UpdateEmployeeModel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

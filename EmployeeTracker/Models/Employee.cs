@@ -76,11 +76,11 @@ namespace EmployeeTracker.Models
 
         // ADDRESS
         [Required]
-        [DisplayName("Line 1")]
+        [DisplayName("Address Line 1")]
         public string AddressLine1 { get; set; }
-        [DisplayName("Line 2")]
+        [DisplayName("Address Line 2")]
         public string AddressLine2 { get; set; }
-        [DisplayName("Line 3")]
+        [DisplayName("Address Line 3")]
         public string AddressLine3 { get; set; }
         [Required]
         [StringLength(100)]
@@ -115,6 +115,8 @@ namespace EmployeeTracker.Models
 
         // HEADSHOT
         public byte[] Image { get; set; }
+        [StringLength(50)]
+        public string ImageMimeType { get; set; }
 
         // REFERENCE: DEPARTMENT
         [DisplayName("Department")]
