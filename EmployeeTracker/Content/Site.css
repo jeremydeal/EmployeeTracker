@@ -27,6 +27,7 @@ textarea {
 /*
     purple = #CAC8CC
     green = #B1CD48
+    light blue = #89A0BB
 */
 .navbar {
     background-color: #2E2E4A;
@@ -40,3 +41,7 @@ textarea {
     color: #CAC8CC;
 }
 
+.jumbotron {
+    background-color: #89A0BB;
+    color: white;
+}

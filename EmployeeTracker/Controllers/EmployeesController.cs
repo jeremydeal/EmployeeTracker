@@ -171,10 +171,19 @@ namespace EmployeeTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,MiddleName,LastName,Email,PreferredPhoneNumber,AddressLine1,AddressLine2,AddressLine3,City,State,Zip,StartDate,EndDate,Shift,Status,PermissionLevel,JobTitleID,Image,DepartmentID,ManagerID")] Employee employee)
+        public ActionResult Create([Bind(Include = "FirstName,MiddleName,LastName,Email,PreferredPhoneNumber,AddressLine1,AddressLine2,AddressLine3,City,State,Zip,StartDate,EndDate,Shift,Status,PermissionLevel,JobTitleID,Image,DepartmentID,ManagerID")] Employee employee,
+            HttpPostedFileBase imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null)
+                {
+                    // if a headshot was uploaded, store the image in the Employee object
+                    employee.ImageMimeType = imageFile.ContentType;
+                    employee.Image = new byte[imageFile.ContentLength];
+                    imageFile.InputStream.Read(employee.Image, 0, imageFile.ContentLength);
+                }
+
                 db.Employees.Add(employee);
                 db.SaveChanges();
 

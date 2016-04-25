@@ -1,4 +1,5 @@
 ﻿@model EmployeeTracker.Models.Employee
+@using EmployeeTracker.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -130,7 +131,25 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
+                <select class="form-control" name="Status" id="Status"
+                        data-val="true" data-val-required="The Status field is required.">
+                    <option value="@Statuses.PartTime" @if (Model.Status == Statuses.PartTime) { @:selected="selected"
+                            }>
+                        @PrettyPrintHelpers.PrettyPrintJobStatus(Statuses.PartTime)
+                    </option>
+                    <option value="@Statuses.FullTime" @if (Model.Status == Statuses.FullTime) { @: selected="selected"
+                                                        }>
+                        @PrettyPrintHelpers.PrettyPrintJobStatus(Statuses.FullTime)
+                    </option>
+                    <option value="@Statuses.Temporary" @if (Model.Status == Statuses.Temporary) { @: selected="selected"
+                                                        }>
+                        @PrettyPrintHelpers.PrettyPrintJobStatus(Statuses.Temporary)
+                    </option>
+                    <option value="@Statuses.Inactive" @if (Model.Status == Statuses.Inactive) { @: selected="selected"
+                                                        }>
+                        @PrettyPrintHelpers.PrettyPrintJobStatus(Statuses.Inactive)
+                    </option>
+                </select>
                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -175,13 +194,12 @@
                     Choose File...
                     <input type="file" name="ImageFile" size="40"
                             style="position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0); opacity:0;background-color:transparent;color:transparent;"
-                            onchange='$("#upload-fileinfo").html($(this).val());' />
+                            onchange='$("#upload-file-info").html($(this).val());' />
                 </a>
-                <span class='label label-info' id="upload-file-info"></span>
             </div>
             @if (Model.Image == null)
             {
-                <div class="form-control-static">No Image</div>
+                <div id="upload-file-info" class="form-control-static">No Image</div>
             }
             else
             {
