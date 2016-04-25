@@ -216,10 +216,18 @@ namespace EmployeeTracker.Controllers
         // POST: Employees/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID, FirstName,MiddleName,LastName,Email,PreferredPhoneNumber,AddressLine1,AddressLine2,AddressLine3,City,State,Zip,StartDate,EndDate,Shift,Status,PermissionLevel,JobTitleID,Image,DepartmentID,ManagerID")] Employee employee)
+        public ActionResult Edit([Bind(Include = "ID, FirstName,MiddleName,LastName,Email,PreferredPhoneNumber,AddressLine1,AddressLine2,AddressLine3,City,State,Zip,StartDate,EndDate,Shift,Status,PermissionLevel,JobTitleID,Image,DepartmentID,ManagerID")] Employee employee,
+            HttpPostedFileBase imageFile = null)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null)
+                {
+                    // if a headshot was uploaded, store the image in the Employee object
+                    employee.ImageMimeType = imageFile.ContentType;
+                    employee.Image = new byte[imageFile.ContentLength];
+                    imageFile.InputStream.Read(employee.Image, 0, imageFile.ContentLength);
+                }
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -263,6 +271,21 @@ namespace EmployeeTracker.Controllers
             TempData["message"] = string.Format("{0} has been deleted", employee.FullName);
 
             return RedirectToAction("Index");
+        }
+
+        public FileContentResult GetImage(int employeeID)
+        {
+            Employee employee = db.Employees
+                .FirstOrDefault(e => e.ID == employeeID);
+
+            if (employee != null)
+            {
+                return File(employee.Image, employee.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         protected override void Dispose(bool disposing)

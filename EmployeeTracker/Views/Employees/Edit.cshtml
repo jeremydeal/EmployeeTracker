@@ -4,10 +4,11 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Employees",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <h2>Edit @Html.DisplayFor(model => model.FullName)</h2>
         <hr />
@@ -151,14 +152,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <label class="control-label col-md-2">Department</label>
             <div class="col-md-10">
                 @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
@@ -172,6 +165,30 @@
                 @Html.DropDownList("ManagerID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ManagerID, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+        <h3>Upload Headshot</h3>
+        <div class="form-group">
+            <div style="position: relative;">
+                <label class="control-label col-md-2">Image</label>
+                <a class="btn pull-left" href="javascript:;">
+                    Choose File...
+                    <input type="file" name="ImageFile" size="40"
+                            style="position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0); opacity:0;background-color:transparent;color:transparent;"
+                            onchange='$("#upload-fileinfo").html($(this).val());' />
+                </a>
+                <span class='label label-info' id="upload-file-info"></span>
+            </div>
+            @if (Model.Image == null)
+            {
+                <div class="form-control-static">No Image</div>
+            }
+            else
+            {
+                <img class="img-thumbnail" width="150" height="150"
+                     src="@Url.Action("GetImage", "Employees", new { employeeID = Model.ID })" />
+
+            }
         </div>
 
         <div class="form-group">

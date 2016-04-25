@@ -9,7 +9,7 @@
 <div>
     <h2>@Html.DisplayFor(model => model.Employee.FullName)</h2>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal col-md-8">
         <dt>Department</dt>
         <dd>
             @Html.DisplayFor(model => model.Employee.Department.Name)
@@ -127,38 +127,43 @@
         <dd>
             @Html.DisplayFor(model => model.Employee.PermissionLevel)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee.Image)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.Image)
-        </dd>
-
     </dl>
+    @if (Model.Employee.Image != null)
+    {
+        <div class="container col-md-4">
+            <img class="img-thumbnail" width="100%"
+                 src="@Url.Action("GetImage", "Employees", new { employeeID = Model.Employee.ID })" />
+        </div>
+    }
 </div>
 
-<!-- LIST CHANGES -->
-<h3>History of Employee Changes</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Change Type</th>
-            <th>Date Changed</th>
-            <th>Old Value</th>
-            <th>New Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var change in Model.EmployeeChangeHistory)
-        {
-            Html.RenderPartial("EmployeeChangeHistory", change);
-        }
-    </tbody>
-</table>
+<div class="container">
+    <!-- LIST CHANGES -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="4">
+                    <h3>History of Employee Changes</h3>
+                </th>
+            </tr>
+            <tr>
+                <th>Change Type</th>
+                <th>Date Changed</th>
+                <th>Old Value</th>
+                <th>New Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var change in Model.EmployeeChangeHistory)
+            {
+                Html.RenderPartial("EmployeeChangeHistory", change);
+            }
+        </tbody>
+    </table>
 
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Employee.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Employee.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
