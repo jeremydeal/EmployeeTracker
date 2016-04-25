@@ -177,6 +177,10 @@ namespace EmployeeTracker.Controllers
             {
                 db.Employees.Add(employee);
                 db.SaveChanges();
+
+                // flash messaging to confirm successful action
+                TempData["message"] = string.Format("{0} has been created", employee.FullName);
+
                 return RedirectToAction("Index");
             }
 
@@ -219,6 +223,9 @@ namespace EmployeeTracker.Controllers
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
 
+                // flash messaging to confirm successful action
+                TempData["message"] = string.Format("{0} has been edited", employee.FullName);
+
                 return RedirectToAction("Index");
             }
 
@@ -251,6 +258,10 @@ namespace EmployeeTracker.Controllers
             Employee employee = db.Employees.Find(id);
             db.Employees.Remove(employee);
             db.SaveChanges();
+
+            // flash messaging to confirm successful action
+            TempData["message"] = string.Format("{0} has been deleted", employee.FullName);
+
             return RedirectToAction("Index");
         }
 

@@ -87,7 +87,8 @@ namespace EmployeeTracker.Models
         public string City { get; set; }
         [Required]
         [StringLength(2)]
-        public string State { get; set; }
+        private string state;
+        public string State { get { return state; } set { state = value.ToUpper(); } }
         [Required]
         [Range(10000,99999)]
         public int Zip { get; set; }

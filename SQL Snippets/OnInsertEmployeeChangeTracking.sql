@@ -11,7 +11,7 @@ BEGIN
 	DECLARE @id int, @newManager int, @newJobTitle int, @newPermissionLevel int, @newManagerName varchar(100), @newJobTitleName varchar(100)
 	
 	-- grab inserted values that we want to track
-	SELECT @newManager = i.ManagerID, @newJobTitle = i.JobTitleID, @newPermissionLevel = i.PermissionLevel
+	SELECT @id = i.ID, @newManager = i.ManagerID, @newJobTitle = i.JobTitleID, @newPermissionLevel = i.PermissionLevel
 		FROM inserted AS i;
 
 	-- convert inserted IDs into the corresponding names	

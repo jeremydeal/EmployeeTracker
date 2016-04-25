@@ -17,9 +17,7 @@ namespace EmployeeTracker
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/site.css",
-                "~/Content/themes/base/core.css",
-                "~/Content/themes/base/datepicker.css",
-                "~/Content/themes/base/theme.css"
+                "~/Content/themes/base/*.css"
             ));
 
             // COMPLETE SCRIPT BUNDLE

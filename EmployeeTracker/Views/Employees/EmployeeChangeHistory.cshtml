@@ -4,13 +4,23 @@
 <tr>
     <td>@PrettyPrintHelpers.PrettyPrintChangeType(Model.Type)</td>
     <td>@Model.DateChanged</td>
+
+    <!-- pretty print the PermissionLevels enum if applicable -->
     @if (Model.Type == ChangeTypes.PermissionsLevelChange)
     {
-        <td>@Enum.Parse(typeof(PermissionLevels), Model.OldValue).ToString()</td>
+        if (!string.IsNullOrEmpty(Model.OldValue))
+        {
+            <td>@Enum.Parse(typeof(PermissionLevels), Model.OldValue).ToString()</td>
+        }
+        else
+        {
+            <td></td>
+        }
         <td>@Enum.Parse(typeof(PermissionLevels), Model.NewValue).ToString()</td>
     }
     else
     {
+        <!-- else render the plain string values -->
         <td>@Model.OldValue</td>
         <td>@Model.NewValue</td>
     }

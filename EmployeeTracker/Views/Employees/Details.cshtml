@@ -29,30 +29,6 @@
         }
 
         <dt>
-            @Html.DisplayNameFor(model => model.Employee.FirstName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.FirstName)
-        </dd>
-
-        @if (!string.IsNullOrEmpty(Model.Employee.MiddleName))
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Employee.MiddleName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Employee.MiddleName)
-            </dd>
-        }
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee.LastName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.LastName)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Employee.Email)
         </dt>
         <dd>
@@ -163,6 +139,7 @@
 </div>
 
 <!-- LIST CHANGES -->
+<h3>History of Employee Changes</h3>
 <table class="table">
     <thead>
         <tr>

@@ -13,10 +13,10 @@
 </p>
 
 <!-- form with autocomplete and Ajax search, handled in et.js -->
-<form method="get" action="@Url.Action("Index")"
+<form class="form-inline" method="get" action="@Url.Action("Index")"
       data-et-ajax="true" data-et-target="#employeeList">
-    <input type="search" name="searchString" data-et-autocomplete="@Url.Action("AutoComplete")" />
-    <input type="submit" value="Search" />
+    <input class="form-control" type="search" name="searchString" data-et-autocomplete="@Url.Action("AutoComplete")" />
+    <input class="btn btn-default" type="submit" value="Search" />
 </form>
 
 <table class="table">
